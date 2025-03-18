@@ -1,0 +1,17 @@
+replicaCount: 3
+
+image:
+  repository: "<DOCKER_USERNAME>/flask-docker-app"
+  tag: "latest"  # You can change the tag if needed
+
+service:
+  type: LoadBalancer  # Options: LoadBalancer, ClusterIP, NodePort
+  port: 80
+  targetPort: 5000
+
+ingress:
+  enabled: false  # Set to true if you want to use Ingress
+  # host: "yourdomain.com"  # Uncomment and provide domain if using Ingress
+  # path: "/"
+
+resources: {}
