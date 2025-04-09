@@ -1,12 +1,7 @@
 name: CI Pipeline for Flask Docker App
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
