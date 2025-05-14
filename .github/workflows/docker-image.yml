@@ -12,6 +12,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Docker Buildx with containerd driver
+      uses: docker/setup-buildx-action@v2
+      with:
+        driver: containerd
+        install: true
+
     # Set up Docker Buildx (builds multi-platform Docker images)
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
