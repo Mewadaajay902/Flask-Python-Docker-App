@@ -26,6 +26,7 @@ jobs:
     # Build the Docker image
     - name: Build Docker image
       run: |
+        export DOCKER_BUILDKIT=1
         docker build \
           --cache-from=type=registry,ref=${{ secrets.DOCKER_USERNAME }}/flask-docker-app:cache \
           --cache-to=type=registry,ref=${{ secrets.DOCKER_USERNAME }}/flask-docker-app:cache,mode=max \
