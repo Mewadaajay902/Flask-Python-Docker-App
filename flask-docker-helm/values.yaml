@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 15
 
 image:
   repository: "<DOCKER_USERNAME>/flask-docker-app"
