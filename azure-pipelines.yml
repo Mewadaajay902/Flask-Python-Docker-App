@@ -1,0 +1,59 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+#trigger:
+#- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: BuildHelmChart
+    jobs:
+      - job: BuildHelmChart
+        steps:
+          - task: replacetokens@6
+            inputs:
+              root: 'flask-docker-helm'
+              sources: 'values.yaml'
+              tokenPattern: 'custom'
+              tokenPrefix: '<'
+              tokenSuffix: '>'
+          - task: CmdLine@2
+            inputs:
+              script: |
+                helm package flask-docker-helm --destination $(Build.ArtifactStagingDirectory)
+            
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+   
+  - stage: DeployHelmChart
+    jobs:
+      - job: DeployHelmChart
+        steps:
+          - task: DownloadBuildArtifacts@1
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'drop'
+              downloadPath: '$(System.ArtifactsDirectory)'
+          - task: HelmDeploy@1
+            displayName: 'helm upgrade'
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'AKSConnection'
+              azureResourceGroup: 'AKS-Practical'
+              kubernetesCluster: 'akscluster'
+              namespace: 'default'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: '$(System.ArtifactsDirectory)/_FirstProject-CI/drop/flask-docker-app-0.1.0.tgz'
+              releaseName: 'flask-docker-app'
+              install: false
+              waitForExecution: false
+
