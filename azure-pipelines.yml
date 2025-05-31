@@ -52,7 +52,7 @@ stages:
               namespace: 'default'
               command: 'install'
               chartType: 'FilePath'
-              chartPath: '$(System.ArtifactsDirectory)/_FirstProject-CI/drop/flask-docker-app-0.1.0.tgz'
+              chartPath: '$(System.ArtifactsDirectory)/drop/*'
               releaseName: 'flask-docker-app'
               waitForExecution: false
 
