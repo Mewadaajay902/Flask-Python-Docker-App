@@ -47,13 +47,12 @@ stages:
             inputs:
               connectionType: 'Azure Resource Manager'
               azureSubscription: 'AKSConnection'
-              azureResourceGroup: 'AKS-Practical'
+              azureResourceGroup: 'aks-demo'
               kubernetesCluster: 'akscluster'
               namespace: 'default'
-              command: 'upgrade'
+              command: 'install'
               chartType: 'FilePath'
               chartPath: '$(System.ArtifactsDirectory)/_FirstProject-CI/drop/flask-docker-app-0.1.0.tgz'
               releaseName: 'flask-docker-app'
-              install: false
               waitForExecution: false
 
