@@ -1,7 +1,7 @@
 replicaCount: 15
 
 image:
-  repository: "<DOCKER_USERNAME>/flask-docker-app"
+  repository: "ajaycreation/flask-docker-app"
   tag: "6ffe3765dfaddb1c1b962f85d55988894d42b373"  # You can change the tag if needed
 
 service:
