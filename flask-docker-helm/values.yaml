@@ -1,4 +1,4 @@
-replicaCount: 15
+replicaCount: 1
 
 image:
   repository: "ajaycreation/flask-docker-app"
